@@ -85,7 +85,7 @@ def data_preparation(tensors):
 
 def SVM_prediction(X):
     print('Predicting the names using SVM prediction')
-    model=load('data_SVM\svm_model.joblib')
+    model=load('data_SVM\svm_final_model.joblib')
     y_hat=model.predict(X)
     predicted_names=[svm_dict[i] for i in y_hat]
     return predicted_names
