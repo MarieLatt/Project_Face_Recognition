@@ -15,8 +15,13 @@ This directory contains:
 1. scraping/IMDB_scraping.ipynb: web scraping of all the pictures related to the Friends TV show on IMDb
 2. cropping/FaceCropping.ipynb: detection and cropping faces out of the pictures with MTCNN from [facenet](https://github.com/timesler/facenet-pytorch).  
 These 2 steps allow building the dataset to train the convolutional Neural Network.
-3. model_nn.py: the Neural Network model (consisting in 4 convolutional layers and 3 linear layers)
-4. NN_train_test.ipynb: training the Neural Network and validation
+3. model_nn_bn_cv4.py and model_nn_bn_cv4x2.py: the Neural Network models 
+ I tested several configurations of the neural network: 
+  - changing the learning rate, the optimizer, the batchsize,       
+  - adding a Dropout(0.2)  or a batchnorm to the convolutional layers ([ref](https://towardsdatascience.com/batch-normalization-and-dropout-in-neural-networks-explained-with-pytorch-47d7a8459bcd)): BatchNorm2d gave me slightly better results and a faster convergence,     
+  - modifying the number of out-channels for the convolutional layers:  I took my inspiration from the architecture of [VGG-19](https://www.researchgate.net/figure/llustration-of-the-network-architecture-of-VGG-19-model-conv-means-convolution-FC-means_fig2_325137356). Depths of 64,128,256 and 512 pushed my laptop to its limits, so I used 32,64, 256 and 512 filters for the convolutional layers (final model = model_nn_bn_cv4.py), and I tried to double the convolutional layers like in the first layers of VGG-19 (model_nn_bn_cv4x2.py) 
+  
+4. NN_train_test.ipynb: training the Neural Network and Evaluation of the models
 
 ## Model 2: training_SVM
 
@@ -51,4 +56,7 @@ The obtained vectors are used as input to train and test a SVM algorithm.
 * PyTorch
 * OpenCV
 
+## Future Improvements
 
+* Improving the custom convolutional Neural Network would require more data for the training: more pictures or data augmentation
+* Modifying the models to include an 'Other' category for the secondary characters (for example, replacing the SVM classifier by a Radius Neighbors Classifier in Model 2?)

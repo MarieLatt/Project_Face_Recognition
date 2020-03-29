@@ -30,7 +30,7 @@ from facenet_pytorch import MTCNN, InceptionResnetV1
 workers = 0 if os.name == 'nt' else 4
 MIN_FACE_CONFIDENCE = 0.95
 INPUT_FOLDER = 'images_to_test'
-PYT_PATH = 'Conv_net_image.pyt'
+PYT_PATH = 'CNN_image2.pyt'
 svm_dict={0:'Chandler', 1:'Joey', 2:'Monica', 3:'Phoebe', 4:'Rachel', 5:'Ross'}
 nn_dict={0:'Rachel', 1:'Ross', 2:'Chandler', 3:'Phoebe', 4:'Monica', 5:'Joey'}
 name_list=list(svm_dict.values())
@@ -93,7 +93,7 @@ def SVM_prediction(X):
 
 def NN_prediction(cropped_images):
     print('Predicting the names using my NN')
-    from model_nn import Net
+    from model_nn_bn_cv4x2 import Net
     model = Net().to(device)
 # load best state of the model
     model.load_state_dict(torch.load(PYT_PATH))
